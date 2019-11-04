@@ -62,8 +62,36 @@ function createHeader(data) {
   }
 }
 
+function createEditForm(users) {
+  const data = Object.entries(users[0]);
+  for (let [key, value] of data) {
+    if (key !== "id") {
+      if (typeof value === "boolean") {
+        editForm.innerHTML += `<p>
+        <label for="checkbox">${key}</label>
+        <input type="checkbox" name="checkbox" id="checkbox" value="">
+    </p>`
+      }
+      if (typeof value === "string") {
+        editForm.innerHTML += `<p>
+        <label for="${key}">${key}</label>
+        <input required type="text" name="${key}" id="${key}" placeholder="">
+    </p>`
+      }
+      if (typeof value === "number") {
+        editForm.innerHTML += `<p>
+        <label for="${key}">${key}</label>
+        <input required type="number" name="${key}" id="${key}">
+    </p>`
+      }
+    }
+  }
+}
+
 const tableHead = document.querySelector(".table__head-tr--js");
+const editForm = document.querySelector(".form--js");
 createHeader(users);
+createEditForm(users)
 
 const tableBody = document.querySelector(".table__body--js");
 
