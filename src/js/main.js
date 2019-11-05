@@ -53,15 +53,23 @@ let users = [
 ];
 console.log(users);
 
-function handleEdit(id) {
-  console.log(id);
-  const indexToEdit = users.findIndex(x => x.id == id);
+let selectedID;
+
+function handleEdit() {
+  console.log(selectedID)
+  const indexToEdit = users.findIndex(x => x.id == selectedID);
   console.log(indexToEdit);
   const form = document.querySelector(".form--js");
-  let newData = { id: id };
+  let newData = { id: selectedID };
   for (let i = 0; i < form.length - 1; i++) {
-    newData[`${form[i].id}`] = form[i].value;
-    console.log(form[i].id);
+    if (form[i].type === 'checkbox') {
+      form[i].checked ? newData[`${form[i].id}`] = true : newData[`${form[i].id}`] = false;
+      console.log(form[i].id);
+      console.log(form[i].checked)
+    } else {
+      newData[`${form[i].id}`] = form[i].value;
+    }
+    
     console.log(newData);
   }
   console.log(users);
@@ -157,6 +165,7 @@ for (const item of tableRow) {
   item.addEventListener("click", e => {
     const node = e.target.parentNode;
     console.log(node.id);
+    selectedID = node.id
     const cells = node.getElementsByTagName("td");
     for (let i = 0; i < cells.length; i++) {
       if (document.getElementById(headers[i]).type === "checkbox") {
@@ -167,6 +176,6 @@ for (const item of tableRow) {
       console.log(cells[i].innerHTML);
       console.log(headers[i]);
     }
-    document.getElementById("btnsave").addEventListener("click", e => handleEdit(node.id), false);
+    document.getElementById("btnsave").addEventListener("click", e => handleEdit(), false);
   });
 }
