@@ -9,7 +9,7 @@ export function modifyTableRow(data) {
     console.log(value);
     if (key !== "id") {
       value = booleanConverts(value);
-      tableBodyRow.innerHTML += `<td>${value}</td>`;
+      tableBodyRow.innerHTML += `<td class="table__body-td">${value}</td>`;
     }
   }
 }

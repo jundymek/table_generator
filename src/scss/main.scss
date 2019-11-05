@@ -14,3 +14,32 @@ body {
   color: $yellow;
   background: $violet;
 }
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.table {
+  max-width: 70vw;
+  text-align: center;
+  width: 100%;
+  border-spacing: 0;
+  &__head-tr {
+    height: 50px;
+  }
+  &__head-th {
+    border: 1px solid #fff;
+    border-spacing: 0;
+    
+  }
+  &__body-row {
+    height: 50px;
+  }
+  &__body-td {
+    border: 1px solid #fff;
+  }
+}

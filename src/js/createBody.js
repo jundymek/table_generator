@@ -10,7 +10,7 @@ export function createBody(data) {
       const tableBodyRow = document.querySelector(`.table__body-row--${data[i]["id"]}`);
       if (key !== "id") {
         value = booleanConverts(value);
-        tableBodyRow.innerHTML += `<td>${value}</td>`;
+        tableBodyRow.innerHTML += `<td class="table__body-td">${value}</td>`;
       }
     }
   }
