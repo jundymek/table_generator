@@ -1,5 +1,8 @@
 "use strict";
-
+import { createHeader } from "./createHeader";
+import { createBody } from "./createBody";
+import { createEditForm } from "./createEditForm";
+import { handleEdit } from "./handleEdit";
 // service worker registration - remove if you're not going to use it
 
 if ("serviceWorker" in navigator) {
@@ -21,7 +24,7 @@ if ("serviceWorker" in navigator) {
 
 console.log(`Hello world!`);
 
-let users = [
+export let users = [
   {
     id: 1,
     name: "Kevin",
@@ -53,73 +56,36 @@ let users = [
 ];
 console.log(users);
 
-const tableHead = document.querySelector(".table__head-tr--js");
-const editForm = document.querySelector(".form--js");
-const tableBody = document.querySelector(".table__body--js");
-const form = document.querySelector(".form--js");
-
+const main = document.querySelector(".main--js");
 const headers = Object.keys(users[0]).splice(1);
 
-let selectedID;
+export let selectedID;
+
+if (users.length) {
+  main.innerHTML += `
+  
+  <table class="table table--js">
+      <thead class="table__head">
+        <tr class="table__head-tr table__head-tr--js">
+        </tr>
+      </thead>
+      <tbody class="table__body table__body--js"></tbody>
+    </table>
+    <form action="#" class="form form--js">
+    </form>`;
+}
+
+export const tableHead = document.querySelector(".table__head-tr--js");
+export const editForm = document.querySelector(".form--js");
+export const tableBody = document.querySelector(".table__body--js");
+export const form = document.querySelector(".form--js");
 
 createHeader(users);
 createBody(users);
 createEditForm(users);
-addEventLiseners();
+fillEditFormOnClick();
 
-function createHeader(data) {
-  for (const key of Object.keys(data[0])) {
-    if (key !== "id") {
-      tableHead.innerHTML += `<tr>
-    <th>${key}</th>
-    </tr>`;
-    }
-  }
-}
-
-function createBody(data) {
-  for (let i = 0; i < data.length; i++) {
-    const dataEntries = Object.entries(data[i]);
-    console.log(dataEntries);
-    tableBody.innerHTML += `<tr id="${data[i]["id"]}" class="table__body-row table__body-row--${data[i]["id"]}"></tr>`;
-    for (let [key, value] of dataEntries) {
-      const tableBodyRow = document.querySelector(`.table__body-row--${data[i]["id"]}`);
-      if (key !== "id") {
-        value = booleanConverts(value);
-        tableBodyRow.innerHTML += `<td>${value}</td>`;
-      }
-    }
-  }
-}
-
-function createEditForm(data) {
-  const dataEntries = Object.entries(data[0]);
-  for (let [key, value] of dataEntries) {
-    if (key !== "id") {
-      if (typeof value === "boolean") {
-        editForm.innerHTML += `<p>
-        <label for="checkbox">${key}</label>
-        <input type="checkbox" name="${key}" id="${key}">
-    </p>`;
-      }
-      if (typeof value === "string") {
-        editForm.innerHTML += `<p>
-        <label for="${key}">${key}</label>
-        <input required type="text" name="${key}" id="${key}" placeholder="">
-    </p>`;
-      }
-      if (typeof value === "number") {
-        editForm.innerHTML += `<p>
-        <label for="${key}">${key}</label>
-        <input required type="number" name="${key}" id="${key}" step=0.5>
-    </p>`;
-      }
-    }
-  }
-  editForm.innerHTML += `<input id="btnsave" type="button" value="Save">`;
-}
-
-function addEventLiseners() {
+function fillEditFormOnClick() {
   const tableRow = document.querySelectorAll(".table__body-row");
   for (const item of tableRow) {
     item.addEventListener("click", e => {
@@ -136,41 +102,4 @@ function addEventLiseners() {
       document.getElementById("btnsave").addEventListener("click", () => handleEdit());
     });
   }
-}
-
-function handleEdit() {
-  let newData = { id: selectedID };
-  for (let i = 0; i < form.length - 1; i++) {
-    if (form[i].type === "checkbox") {
-      form[i].checked ? (newData[`${form[i].id}`] = true) : (newData[`${form[i].id}`] = false);
-    } else {
-      newData[`${form[i].id}`] = form[i].value;
-    }
-  }
-  const data = Object.entries(newData);
-  modifyTableRow(data);
-}
-
-function modifyTableRow(data) {
-  const indexToEdit = users.findIndex(x => x.id == selectedID);
-  const tableBodyRow = document.querySelector(`.table__body-row--${users[indexToEdit]["id"]}`);
-  tableBodyRow.innerHTML = ``;
-  for (let [key, value] of data) {
-    console.log(value);
-    if (key !== "id") {
-      value = booleanConverts(value);
-      tableBodyRow.innerHTML += `<td>${value}</td>`;
-    }
-  }
-}
-
-function booleanConverts(value) {
-  if (typeof value === "boolean") {
-    if (value === true) {
-      value = "Yes";
-    } else {
-      value = "No";
-    }
-  }
-  return value;
 }
