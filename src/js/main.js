@@ -53,43 +53,19 @@ let users = [
 ];
 console.log(users);
 
+const tableHead = document.querySelector(".table__head-tr--js");
+const editForm = document.querySelector(".form--js");
+const tableBody = document.querySelector(".table__body--js");
+const form = document.querySelector(".form--js");
+
+const headers = Object.keys(users[0]).splice(1);
+
 let selectedID;
 
-function handleEdit() {
-  console.log(selectedID)
-  const indexToEdit = users.findIndex(x => x.id == selectedID);
-  console.log(indexToEdit);
-  const form = document.querySelector(".form--js");
-  let newData = { id: selectedID };
-  for (let i = 0; i < form.length - 1; i++) {
-    if (form[i].type === 'checkbox') {
-      form[i].checked ? newData[`${form[i].id}`] = true : newData[`${form[i].id}`] = false;
-      console.log(form[i].id);
-      console.log(form[i].checked)
-    } else {
-      newData[`${form[i].id}`] = form[i].value;
-    }
-    
-    console.log(newData);
-  }
-  console.log(users);
-  const data = Object.entries(newData);
-  const tableBodyRow = document.querySelector(`.table__body-row--${users[indexToEdit]["id"]}`);
-  tableBodyRow.innerHTML = ``;
-  for (let [key, value] of data) {
-    console.log(value);
-    if (key !== "id") {
-      if (typeof value === "boolean") {
-        if (value === true) {
-          value = "Yes";
-        } else {
-          value = "No";
-        }
-      }
-      tableBodyRow.innerHTML += `<td>${value}</td>`;
-    }
-  }
-}
+createHeader(users);
+createBody(users);
+createEditForm(users);
+addEventLiseners();
 
 function createHeader(data) {
   for (const key of Object.keys(data[0])) {
@@ -101,33 +77,24 @@ function createHeader(data) {
   }
 }
 
-const tableBody = document.querySelector(".table__body--js");
-
-function createBody(users) {
-  for (let i = 0; i < users.length; i++) {
-    const data = Object.entries(users[i]);
-    tableBody.innerHTML += `<tr id="${users[i]["id"]}" class="table__body-row table__body-row--${
-      users[i]["id"]
-    }"></tr>`;
-    for (let [key, value] of data) {
-      const tableBodyRow = document.querySelector(`.table__body-row--${users[i]["id"]}`);
+function createBody(data) {
+  for (let i = 0; i < data.length; i++) {
+    const dataEntries = Object.entries(data[i]);
+    console.log(dataEntries);
+    tableBody.innerHTML += `<tr id="${data[i]["id"]}" class="table__body-row table__body-row--${data[i]["id"]}"></tr>`;
+    for (let [key, value] of dataEntries) {
+      const tableBodyRow = document.querySelector(`.table__body-row--${data[i]["id"]}`);
       if (key !== "id") {
-        if (typeof value === "boolean") {
-          if (value === true) {
-            value = "Yes";
-          } else {
-            value = "No";
-          }
-        }
+        value = booleanConverts(value);
         tableBodyRow.innerHTML += `<td>${value}</td>`;
       }
     }
   }
 }
 
-function createEditForm(users) {
-  const data = Object.entries(users[0]);
-  for (let [key, value] of data) {
+function createEditForm(data) {
+  const dataEntries = Object.entries(data[0]);
+  for (let [key, value] of dataEntries) {
     if (key !== "id") {
       if (typeof value === "boolean") {
         editForm.innerHTML += `<p>
@@ -144,7 +111,7 @@ function createEditForm(users) {
       if (typeof value === "number") {
         editForm.innerHTML += `<p>
         <label for="${key}">${key}</label>
-        <input required type="number" name="${key}" id="${key}">
+        <input required type="number" name="${key}" id="${key}" step=0.5>
     </p>`;
       }
     }
@@ -152,30 +119,58 @@ function createEditForm(users) {
   editForm.innerHTML += `<input id="btnsave" type="button" value="Save">`;
 }
 
-const tableHead = document.querySelector(".table__head-tr--js");
-const editForm = document.querySelector(".form--js");
-createHeader(users);
-createBody(users);
-createEditForm(users);
-
-const headers = Object.keys(users[0]).splice(1);
-
-const tableRow = document.querySelectorAll(".table__body-row");
-for (const item of tableRow) {
-  item.addEventListener("click", e => {
-    const node = e.target.parentNode;
-    console.log(node.id);
-    selectedID = node.id
-    const cells = node.getElementsByTagName("td");
-    for (let i = 0; i < cells.length; i++) {
-      if (document.getElementById(headers[i]).type === "checkbox") {
-        document.getElementById(headers[i]).checked = cells[i].innerHTML === "Yes" ? true : false;
-      } else {
-        document.getElementById(headers[i]).value = cells[i].innerHTML;
+function addEventLiseners() {
+  const tableRow = document.querySelectorAll(".table__body-row");
+  for (const item of tableRow) {
+    item.addEventListener("click", e => {
+      const node = e.target.parentNode;
+      selectedID = node.id;
+      const cells = node.getElementsByTagName("td");
+      for (let i = 0; i < cells.length; i++) {
+        if (document.getElementById(headers[i]).type === "checkbox") {
+          document.getElementById(headers[i]).checked = cells[i].innerHTML === "Yes" ? true : false;
+        } else {
+          document.getElementById(headers[i]).value = cells[i].innerHTML;
+        }
       }
-      console.log(cells[i].innerHTML);
-      console.log(headers[i]);
+      document.getElementById("btnsave").addEventListener("click", () => handleEdit());
+    });
+  }
+}
+
+function handleEdit() {
+  let newData = { id: selectedID };
+  for (let i = 0; i < form.length - 1; i++) {
+    if (form[i].type === "checkbox") {
+      form[i].checked ? (newData[`${form[i].id}`] = true) : (newData[`${form[i].id}`] = false);
+    } else {
+      newData[`${form[i].id}`] = form[i].value;
     }
-    document.getElementById("btnsave").addEventListener("click", e => handleEdit(), false);
-  });
+  }
+  const data = Object.entries(newData);
+  modifyTableRow(data);
+}
+
+function modifyTableRow(data) {
+  const indexToEdit = users.findIndex(x => x.id == selectedID);
+  const tableBodyRow = document.querySelector(`.table__body-row--${users[indexToEdit]["id"]}`);
+  tableBodyRow.innerHTML = ``;
+  for (let [key, value] of data) {
+    console.log(value);
+    if (key !== "id") {
+      value = booleanConverts(value);
+      tableBodyRow.innerHTML += `<td>${value}</td>`;
+    }
+  }
+}
+
+function booleanConverts(value) {
+  if (typeof value === "boolean") {
+    if (value === true) {
+      value = "Yes";
+    } else {
+      value = "No";
+    }
+  }
+  return value;
 }
