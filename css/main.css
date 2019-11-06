@@ -334,10 +334,10 @@ body {
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
-          align-items: center;
-  height: 100vh; }
+          align-items: center; }
   .main__header {
-    text-align: center; }
+    text-align: center;
+    margin-top: 60px; }
 
 .table {
   max-width: 80%;
@@ -370,7 +370,8 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   min-width: 20vw;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 40px; }
   .edit-form__header {
     font-size: 20px; }
 
@@ -378,6 +379,9 @@ body {
   width: 100%;
   border: 1px solid #fff;
   padding-bottom: 10px; }
+  .form--blurred {
+    -webkit-filter: blur(2px);
+            filter: blur(2px); }
   .form__element {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -387,6 +391,8 @@ body {
             justify-content: space-between;
     color: #fff;
     padding: 0 20px; }
+    .form__element--inactive {
+      pointer-events: none; }
   .form__label {
     text-align: left;
     margin-right: 10px; }
