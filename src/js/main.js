@@ -71,8 +71,11 @@ if (users.length) {
       </thead>
       <tbody class="table__body table__body--js"></tbody>
     </table>
+    <section class="edit-form">
+    <h2 class="edit-form__header">Dynamicaly edit form data</h2>
     <form action="#" class="form form--js">
-    </form>`;
+    </form>
+    </section>`;
 }
 
 export const tableHead = document.querySelector(".table__head-tr--js");

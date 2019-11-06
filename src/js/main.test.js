@@ -1,6 +1,6 @@
 import { booleanConverts } from './booleanConverts';
 
-describe('BooleanConverts', () => {
+describe('BooleanConverts helper function', () => {
     it('true should give Yes ', () => {
         expect(booleanConverts(true)).toBe('Yes')
     });
