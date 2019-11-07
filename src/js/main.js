@@ -22,8 +22,6 @@ if ("serviceWorker" in navigator) {
 
 // place your code below
 
-console.log(`Hello world!`);
-
 export let users = [
   {
     id: 1,
@@ -54,12 +52,16 @@ export let users = [
     retired: true
   }
 ];
-console.log(users);
 
 const main = document.querySelector(".main--js");
 const headers = Object.keys(users[0]).splice(1);
 
 export let selectedID;
+export let tableHead;
+export let editForm;
+export let tableBody;
+export let form;
+export let formElements;
 
 if (users.length) {
   main.innerHTML += `
@@ -76,27 +78,27 @@ if (users.length) {
     <form action="#" class="form form--blurred form--js ">
     </form>
     </section>`;
+
+  tableHead = document.querySelector(".table__head-tr--js");
+  tableBody = document.querySelector(".table__body--js");
+  form = document.querySelector(".form--js");
+  
+
+  createHeader(users);
+  createBody(users);
+  createEditForm(users);
+  fillEditFormOnClick();
+
+  formElements = document.querySelectorAll(".form__element--js");
 }
-
-export const tableHead = document.querySelector(".table__head-tr--js");
-export const editForm = document.querySelector(".form--js");
-export const tableBody = document.querySelector(".table__body--js");
-export const form = document.querySelector(".form--js");
-
-createHeader(users);
-createBody(users);
-createEditForm(users);
-fillEditFormOnClick();
-
-export const formElements = document.querySelectorAll(".form__element--js");
 
 function fillEditFormOnClick() {
   const tableRow = document.querySelectorAll(".table__body-row");
   for (const item of tableRow) {
     item.addEventListener("click", e => {
-      form.classList.remove("form--blurred")
-      for (let i=0; i<formElements.length; i++) {
-        formElements[i].classList.remove("form__element--inactive")
+      form.classList.remove("form--blurred");
+      for (let i = 0; i < formElements.length; i++) {
+        formElements[i].classList.remove("form__element--inactive");
       }
       const node = e.target.parentNode;
       selectedID = node.id;
