@@ -1,8 +1,11 @@
 @import "_normalize";
 @import "_variables";
 
+@import url("https://fonts.googleapis.com/css?family=Fira+Code:400,700&display=swap&subset=latin-ext");
+
 html {
   box-sizing: border-box;
+  font-family: "Fira Code", monospace;
 }
 
 *,
@@ -39,6 +42,7 @@ body {
     border: 1px solid #fff;
     color: #fff;
     text-decoration: underline;
+    font-weight: 700;
   }
   &__body-row {
     height: 50px;

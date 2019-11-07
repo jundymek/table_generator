@@ -5,6 +5,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
+@import url("https://fonts.googleapis.com/css?family=Fira+Code:400,700&display=swap&subset=latin-ext");
 html {
   line-height: 1.15;
   /* 1 */
@@ -309,7 +310,8 @@ template {
 
 html {
   -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+          box-sizing: border-box;
+  font-family: "Fira Code", monospace; }
 
 *,
 *:before,
@@ -349,7 +351,8 @@ body {
   .table__head-th {
     border: 1px solid #fff;
     color: #fff;
-    text-decoration: underline; }
+    text-decoration: underline;
+    font-weight: 700; }
   .table__body-row {
     height: 50px; }
     .table__body-row:hover {
