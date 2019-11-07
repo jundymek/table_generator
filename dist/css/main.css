@@ -309,6 +309,28 @@ template {
 [hidden] {
   display: none; }
 
+@-webkit-keyframes blink {
+  0%,
+  10%,
+  50%,
+  100% {
+    opacity: 1; }
+  25%,
+  35%,
+  75% {
+    opacity: 0; } }
+
+@keyframes blink {
+  0%,
+  10%,
+  50%,
+  100% {
+    opacity: 1; }
+  25%,
+  35%,
+  75% {
+    opacity: 0; } }
+
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -362,6 +384,9 @@ body {
           -ms-transform: scale(1.02);
               transform: scale(1.02);
       cursor: pointer; }
+    .table__body-row--edited {
+      -webkit-animation: blink 1s;
+              animation: blink 1s; }
   .table__body-td {
     border: 1px solid #fff; }
 

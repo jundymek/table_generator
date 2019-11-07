@@ -12,4 +12,8 @@ export function modifyTableRow(data) {
       tableBodyRow.innerHTML += `<td class="table__body-td">${value}</td>`;
     }
   }
+  tableBodyRow.classList.add(`table__body-row--edited`)
+  setTimeout(() => {
+    tableBodyRow.classList.remove(`table__body-row--edited`)
+  }, 1000);
 }

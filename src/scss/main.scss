@@ -1,5 +1,6 @@
 @import "_normalize";
 @import "_variables";
+@import "_animations";
 
 @import url("https://fonts.googleapis.com/css?family=Fira+Code:400,700&display=swap&subset=latin-ext");
 
@@ -50,6 +51,9 @@ body {
       color: #fff;
       transform: scale(1.02);
       cursor: pointer;
+    }
+    &--edited {
+      animation: blink 1s;
     }
   }
   &__body-td {
