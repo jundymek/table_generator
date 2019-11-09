@@ -31,17 +31,15 @@ body {
   }
 }
 .table-wrapper {
-  display: flex;
+  display: block;
   width: 90%;
-  justify-content: center;
-  align-items: center;
+  overflow-x: auto;
 }
 
 .table {
   text-align: center;
   border-spacing: 0;
-  display: block;
-  overflow-y: auto;
+  width: 100%;
   &__head {
     width: 100%;
   }

@@ -365,22 +365,14 @@ body {
     margin-top: 60px; }
 
 .table-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
   width: 90%;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center; }
+  overflow-x: auto; }
 
 .table {
   text-align: center;
   border-spacing: 0;
-  display: block;
-  overflow-y: auto; }
+  width: 100%; }
   .table__head {
     width: 100%; }
   .table__head-tr {

@@ -68,12 +68,12 @@ if (users.length) {
   
   <div class="table-wrapper">
     <table class="table table--js">
-        <thead class="table__head">
-          <tr class="table__head-tr table__head-tr--js">
-          </tr>
-        </thead>
-        <tbody class="table__body table__body--js"></tbody>
-      </table>
+      <thead class="table__head">
+        <tr class="table__head-tr table__head-tr--js">
+        </tr>
+      </thead>
+      <tbody class="table__body table__body--js"></tbody>
+    </table>
   </div>
     <section class="edit-form">
     <h2 class="edit-form__header">Dynamicaly edit form data</h2>
@@ -84,7 +84,6 @@ if (users.length) {
   tableHead = document.querySelector(".table__head-tr--js");
   tableBody = document.querySelector(".table__body--js");
   form = document.querySelector(".form--js");
-  
 
   createHeader(users);
   createBody(users);
@@ -106,6 +105,7 @@ function fillEditFormOnClick() {
       selectedID = node.id;
       const cells = node.getElementsByTagName("td");
       for (let i = 0; i < cells.length; i++) {
+        console.log(cells[i]);
         if (document.getElementById(headers[i]).type === "checkbox") {
           document.getElementById(headers[i]).checked = cells[i].innerHTML === "Yes" ? true : false;
         } else {

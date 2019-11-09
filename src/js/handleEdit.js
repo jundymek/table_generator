@@ -9,6 +9,7 @@ export function handleEdit(e) {
       form[i].checked ? (newData[`${form[i].id}`] = true) : (newData[`${form[i].id}`] = false);
     } else {
       if (form[i].value.length) {
+        console.log(form[i].type)
         newData[`${form[i].id}`] = form[i].value;
       }
       else {
