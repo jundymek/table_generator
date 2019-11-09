@@ -30,12 +30,21 @@ body {
     margin-top: 60px;
   }
 }
+.table-wrapper {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+}
 
 .table {
-  max-width: 80%;
   text-align: center;
-  width: 100%;
   border-spacing: 0;
+  display: block;
+  overflow-y: auto;
+  &__head {
+    width: 100%;
+  }
   &__head-tr {
     height: 50px;
   }
@@ -44,6 +53,7 @@ body {
     color: #fff;
     text-decoration: underline;
     font-weight: 700;
+    padding: 0 10px;
   }
   &__body-row {
     height: 50px;
@@ -58,6 +68,7 @@ body {
   }
   &__body-td {
     border: 1px solid #fff;
+    padding: 0 10px;
   }
 }
 
@@ -84,7 +95,7 @@ body {
         left: 50%;
         bottom: -30px;
         transform: translate(-50%);
-    }
+      }
     }
   }
 }

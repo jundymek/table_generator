@@ -66,13 +66,15 @@ export let formElements;
 if (users.length) {
   main.innerHTML += `
   
-  <table class="table table--js">
-      <thead class="table__head">
-        <tr class="table__head-tr table__head-tr--js">
-        </tr>
-      </thead>
-      <tbody class="table__body table__body--js"></tbody>
-    </table>
+  <div class="table-wrapper">
+    <table class="table table--js">
+        <thead class="table__head">
+          <tr class="table__head-tr table__head-tr--js">
+          </tr>
+        </thead>
+        <tbody class="table__body table__body--js"></tbody>
+      </table>
+  </div>
     <section class="edit-form">
     <h2 class="edit-form__header">Dynamicaly edit form data</h2>
     <form action="#" class="form form--blurred form--js ">
