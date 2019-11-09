@@ -13,7 +13,7 @@ export function handleEdit(e) {
         newData[`${form[i].id}`] = form[i].value;
       }
       else {
-        valid = false
+        requiredFieldsFiled = false
       }
     }
   }
