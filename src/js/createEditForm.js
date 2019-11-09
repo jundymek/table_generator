@@ -24,5 +24,5 @@ export function createEditForm(data) {
       }
     }
   }
-  form.innerHTML += `<input class="form__btn-submit form__element--inactive form__element--js" id="btnsave" type="button" value="Save">`;
+  form.innerHTML += `<input class="form__btn-submit form__element--inactive form__element--js" id="btnsave" type="submit" value="Save">`;
 }

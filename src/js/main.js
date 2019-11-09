@@ -112,7 +112,7 @@ function fillEditFormOnClick() {
           document.getElementById(headers[i]).value = cells[i].innerHTML;
         }
       }
-      document.getElementById("btnsave").addEventListener("click", () => handleEdit());
+      document.getElementById("btnsave").addEventListener("click", handleEdit);
     });
   }
 }
