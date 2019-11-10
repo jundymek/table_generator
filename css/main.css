@@ -434,9 +434,8 @@ body {
   width: 100%;
   border: 1px solid #fff;
   padding-bottom: 10px; }
-  .form--blurred {
-    -webkit-filter: blur(2px);
-            filter: blur(2px); }
+  .form--disabled {
+    opacity: .3; }
   .form__element {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -446,8 +445,6 @@ body {
             justify-content: space-between;
     color: #fff;
     padding: 0 20px; }
-    .form__element--inactive {
-      pointer-events: none; }
   .form__label {
     text-align: left;
     margin-right: 10px; }
