@@ -77,7 +77,7 @@ if (users.length) {
   </div>
     <section class="edit-form">
     <h2 class="edit-form__header">Dynamicaly edit form data</h2>
-    <form action="#" class="form form--blurred form--js ">
+    <form action="#" class="form form--disabled form--js ">
     </form>
     </section>`;
 
@@ -90,16 +90,16 @@ if (users.length) {
   createEditForm(users);
   fillEditFormOnClick();
 
-  formElements = document.querySelectorAll(".form__element--js");
+  formElements = document.querySelectorAll(".form__input--js");
 }
 
 function fillEditFormOnClick() {
   const tableRow = document.querySelectorAll(".table__body-row");
   for (const item of tableRow) {
     item.addEventListener("click", e => {
-      form.classList.remove("form--blurred");
+      form.classList.remove("form--disabled");
       for (let i = 0; i < formElements.length; i++) {
-        formElements[i].classList.remove("form__element--inactive");
+        formElements[i].disabled = false;
       }
       const node = e.target.parentNode;
       selectedID = node.id;

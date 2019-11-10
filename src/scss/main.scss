@@ -102,17 +102,14 @@ body {
   width: 100%;
   border: 1px solid #fff;
   padding-bottom: 10px;
-  &--blurred {
-    filter: blur(2px);
+  &--disabled {
+    opacity: .3;
   }
   &__element {
     display: flex;
     justify-content: space-between;
     color: #fff;
     padding: 0 20px;
-    &--inactive {
-      pointer-events: none;
-    }
   }
   &__label {
     text-align: left;
