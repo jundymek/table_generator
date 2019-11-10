@@ -54,7 +54,6 @@ export let users = [
 ];
 
 const main = document.querySelector(".main--js");
-const headers = Object.keys(users[0]).splice(1);
 
 export let selectedID;
 export let tableHead;
@@ -62,8 +61,30 @@ export let editForm;
 export let tableBody;
 export let form;
 export let formElements;
+export let tableRows;
+export let headers;
 
 if (users.length) {
+  headers = Object.keys(users[0]).splice(1);
+  createBasicHtml();
+  tableHead = document.querySelector(".table__head-tr--js");
+  tableBody = document.querySelector(".table__body--js");
+  form = document.querySelector(".form--js");
+
+  createHeader(users);
+
+  createBody(users);
+  tableRows = document.querySelectorAll(".table__body-row");
+
+  createEditForm(users);
+  document.getElementById("btnsave").addEventListener("click", handleEdit);
+  
+  handleClickOnTableRow();
+
+  formElements = document.querySelectorAll(".form__input--js");
+}
+
+function createBasicHtml() {
   main.innerHTML += `
   
   <div class="table-wrapper">
@@ -80,39 +101,35 @@ if (users.length) {
     <form action="#" class="form form--disabled form--js ">
     </form>
     </section>`;
-
-  tableHead = document.querySelector(".table__head-tr--js");
-  tableBody = document.querySelector(".table__body--js");
-  form = document.querySelector(".form--js");
-
-  createHeader(users);
-  createBody(users);
-  createEditForm(users);
-  fillEditFormOnClick();
-
-  formElements = document.querySelectorAll(".form__input--js");
 }
 
-function fillEditFormOnClick() {
-  const tableRow = document.querySelectorAll(".table__body-row");
-  for (const item of tableRow) {
+function handleClickOnTableRow() {
+  for (const item of tableRows) {
     item.addEventListener("click", e => {
-      form.classList.remove("form--disabled");
-      for (let i = 0; i < formElements.length; i++) {
-        formElements[i].disabled = false;
-      }
-      const node = e.target.parentNode;
-      selectedID = node.id;
-      const cells = node.getElementsByTagName("td");
-      for (let i = 0; i < cells.length; i++) {
-        console.log(cells[i]);
-        if (document.getElementById(headers[i]).type === "checkbox") {
-          document.getElementById(headers[i]).checked = cells[i].innerHTML === "Yes" ? true : false;
-        } else {
-          document.getElementById(headers[i]).value = cells[i].innerHTML;
-        }
-      }
-      document.getElementById("btnsave").addEventListener("click", handleEdit);
+      removeDisabledAttrFromForm();
+      fillEditFormInputFields(e); 
     });
   }
 }
+
+function fillEditFormInputFields(e) {
+  const node = e.target.parentNode;
+  selectedID = node.id;
+  const cells = node.getElementsByTagName("td");
+  for (let i = 0; i < cells.length; i++) {
+    if (document.getElementById(headers[i]).type === "checkbox") {
+      document.getElementById(headers[i]).checked = cells[i].innerHTML === "Yes" ? true : false;
+    }
+    else {
+      document.getElementById(headers[i]).value = cells[i].innerHTML;
+    }
+  }
+}
+
+function removeDisabledAttrFromForm() {
+  form.classList.remove("form--disabled");
+  for (let i = 0; i < formElements.length; i++) {
+    formElements[i].disabled = false;
+  }
+}
+

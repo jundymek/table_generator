@@ -6,7 +6,6 @@ export function modifyTableRow(data) {
   const tableBodyRow = document.querySelector(`.table__body-row--${users[indexToEdit]["id"]}`);
   tableBodyRow.innerHTML = ``;
   for (let [key, value] of data) {
-    console.log(value);
     if (key !== "id") {
       tableBodyRow.innerHTML += `<td class="table__body-td">${booleanConverts(value)}</td>`;
     }

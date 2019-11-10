@@ -13,6 +13,6 @@ module.exports = {
     mode: 'production',
     output: {
         path: outputDir,
-        // filename: 'main.js'
+        filename: '[name].js'
     }
 };
