@@ -8,8 +8,7 @@ export function modifyTableRow(data) {
   for (let [key, value] of data) {
     console.log(value);
     if (key !== "id") {
-      value = booleanConverts(value);
-      tableBodyRow.innerHTML += `<td class="table__body-td">${value}</td>`;
+      tableBodyRow.innerHTML += `<td class="table__body-td">${booleanConverts(value)}</td>`;
     }
   }
   tableBodyRow.classList.add(`table__body-row--edited`)
