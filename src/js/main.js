@@ -31,7 +31,8 @@ if (users.length) {
 }
 
 function createBasicHtml() {
-  const main = document.querySelector(".main--js");
+  const main = getHtmlElements().main
+  // const main = document.querySelector(".main--js");
   main.innerHTML += `
   
   <div class="table-wrapper">
@@ -51,7 +52,7 @@ function createBasicHtml() {
 }
 
 function handleClickOnTableRow() {
-  const tableRows = document.querySelectorAll(".table__body-row");
+  const tableRows = getHtmlElements().tableRows;
   for (const item of tableRows) {
     item.addEventListener("click", e => {
       removeDisabledAttrFromForm();
@@ -76,11 +77,31 @@ function fillEditFormInputFields(e) {
 }
 
 function removeDisabledAttrFromForm() {
-  const form = document.querySelector(".form--js");
-  const formElements = document.querySelectorAll(".form__input--js");
-  form.classList.remove("form--disabled");
-  for (let i = 0; i < formElements.length; i++) {
-    formElements[i].disabled = false;
-  }
+  const form = getHtmlElements().form;
+  const formElements = getHtmlElements().formElements;
+  removeDisabledClass(form);
+  removeDisabledAttribute(formElements);
 }
 
+function removeDisabledClass(form) {
+  form.classList.remove("form--disabled");
+}
+
+function removeDisabledAttribute(formElements) {
+  formElements.forEach((element) => element.disabled = false)
+}
+
+export function getHtmlElements() {
+  const elements = {
+    'main': document.querySelector(".main--js"),
+    'tableRows': document.querySelectorAll(".table__body-row"),
+    'form': document.querySelector(".form--js"),
+    'formElements': document.querySelectorAll(".form__input--js"),
+    'tableHead': document.querySelector(".table__head-tr--js")
+  }
+  return elements
+}
+
+export function getFormHtml() {
+	return document.querySelector(".form--js")
+}
