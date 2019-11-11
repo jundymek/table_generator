@@ -4,7 +4,7 @@ import { users } from "./users";
 
 export function modifyTableRow(data) {
   const indexToEdit = users.findIndex(x => x.id == selectedID);
-  const tableBodyRow = document.querySelector(`.table__body-row--${users[indexToEdit]["id"]}`);
+  const tableBodyRow = document.getElementById(`${users[indexToEdit]["id"]}`);
   tableBodyRow.innerHTML = ``;
   for (let [key, value] of data) {
     if (key !== "id") {
