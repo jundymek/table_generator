@@ -2,7 +2,7 @@
 import { createHeader } from "./createHeader";
 import { createBody } from "./createBody";
 import { createEditForm } from "./createEditForm";
-import { handleEdit } from "./handleEdit";
+import { users } from "./users";
 // service worker registration - remove if you're not going to use it
 
 if ("serviceWorker" in navigator) {
@@ -20,71 +20,18 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-// place your code below
-
-export let users = [
-  {
-    id: 1,
-    name: "Kevin",
-    surname: "Durant",
-    age: 30,
-    retired: false
-  },
-  {
-    id: 2,
-    name: "Chris",
-    surname: "Paul",
-    age: 34,
-    retired: false
-  },
-  {
-    id: 3,
-    name: "Tracy",
-    surname: "McGrady",
-    age: 40,
-    retired: true
-  },
-  {
-    id: 4,
-    name: "Allen",
-    surname: "Iverson",
-    age: 44,
-    retired: true
-  }
-];
-
-const main = document.querySelector(".main--js");
-
 export let selectedID;
-export let tableHead;
-export let editForm;
-export let tableBody;
-export let form;
-export let formElements;
-export let tableRows;
-export let headers;
 
 if (users.length) {
-  headers = Object.keys(users[0]).splice(1);
   createBasicHtml();
-  tableHead = document.querySelector(".table__head-tr--js");
-  tableBody = document.querySelector(".table__body--js");
-  form = document.querySelector(".form--js");
-
   createHeader(users);
-
   createBody(users);
-  tableRows = document.querySelectorAll(".table__body-row");
-
   createEditForm(users);
-  document.getElementById("btnsave").addEventListener("click", handleEdit);
-  
   handleClickOnTableRow();
-
-  formElements = document.querySelectorAll(".form__input--js");
 }
 
 function createBasicHtml() {
+  const main = document.querySelector(".main--js");
   main.innerHTML += `
   
   <div class="table-wrapper">
@@ -104,6 +51,7 @@ function createBasicHtml() {
 }
 
 function handleClickOnTableRow() {
+  const tableRows = document.querySelectorAll(".table__body-row");
   for (const item of tableRows) {
     item.addEventListener("click", e => {
       removeDisabledAttrFromForm();
@@ -113,6 +61,7 @@ function handleClickOnTableRow() {
 }
 
 function fillEditFormInputFields(e) {
+  const headers = Object.keys(users[0]).splice(1);
   const node = e.target.parentNode;
   selectedID = node.id;
   const cells = node.getElementsByTagName("td");
@@ -127,6 +76,8 @@ function fillEditFormInputFields(e) {
 }
 
 function removeDisabledAttrFromForm() {
+  const form = document.querySelector(".form--js");
+  const formElements = document.querySelectorAll(".form__input--js");
   form.classList.remove("form--disabled");
   for (let i = 0; i < formElements.length; i++) {
     formElements[i].disabled = false;

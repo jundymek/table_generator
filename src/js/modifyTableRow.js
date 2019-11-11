@@ -1,5 +1,6 @@
 import { booleanConverts } from "./booleanConverts";
-import { users, selectedID } from "./main";
+import { selectedID } from "./main";
+import { users } from "./users";
 
 export function modifyTableRow(data) {
   const indexToEdit = users.findIndex(x => x.id == selectedID);

@@ -3,6 +3,7 @@ import { modifyTableRow } from "./modifyTableRow";
 import { typeValidationData } from "./createEditForm";
 
 export function handleEdit(e) {
+  const form = document.querySelector(".form--js");
   let newData = { id: selectedID };
   if (validateFormData(form)) {
     for (let i = 0; i < form.length - 1; i++) {
