@@ -1,11 +1,10 @@
 import { handleEdit } from "./handleEdit";
-import { getFormHtml } from "./main";
+import { getHtmlElements } from "./main";
 
 export let typeValidationData = [];
 export function createEditForm(data) {
   const dataEntries = Object.entries(data[0]);
-  const form = getFormHtml()
-  // const form = document.querySelector(".form--js");
+  const form = getHtmlElements().form
   for (let [key, value] of dataEntries) {
     if (key !== "id") {
       if (typeof value === "boolean") {
